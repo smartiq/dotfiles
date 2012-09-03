@@ -1,0 +1,60 @@
+set ts=3
+set shiftwidth=3
+set showmatch
+set ignorecase
+set smartcase
+set title
+set undolevels=100
+set expandtab
+set autoindent
+set splitbelow
+set splitright
+set hlsearch
+set background=dark
+set incsearch
+set cindent
+set number
+set wildmode=longest,list
+
+cabbr %% <C-R>=expand('%:p:h')<CR>
+
+syntax on
+filetype on
+nnoremap <silent> <F8> :TlistToggle<CR>
+map <F12> :!/usr/bin/ctags -R --extra=+q .;/usr/bin/cscope -R -b<CR>
+let Tlist_WinWidth = 40
+let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+let Tlist_Process_file_Always = 1
+let Tlist_Show_One_File = 1
+
+command Co !ct co -nc %:p<CR>
+
+au BufRead,BufNewFile *.dbinfo setfiletype sql
+au BufRead,BufNewFile *.function setfiletype sql
+au BufRead,BufNewFile *.trigger setfiletype sql
+au BufRead,BufNewFile *.sel setfiletype php
+
+augroup JumpCursorOnEdit
+   au!
+   autocmd BufReadPost *
+      \ if expand("<afile>:p:h") !=? $TEMP |
+      \   if line("'\"") > 1 && line("'\"") <= line("$") |
+      \     let JumpCursorOnEdit_foo = line("'\"") |
+      \     let b:doopenfold = 1 |
+      \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+      \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+      \        let b:doopenfold = 2 |
+      \     endif |
+      \     exe JumpCursorOnEdit_foo |        
+      \   endif |
+      \ endif
+      " Need to postpone using "zv" until after reading the modelines. 
+    autocmd BufWinEnter *
+      \ if exists("b:doopenfold") |
+      \   exe "normal zv" |
+      \   if(b:doopenfold > 1) |
+      \      exe "+".1 |
+      \   endif |
+      \   unlet b:doopenfold |
+      \   endif
+        
