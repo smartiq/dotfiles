@@ -16,6 +16,9 @@ set cindent
 set number
 set wildmode=longest,list
 
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929 
+match OverLength /\%81v.\+/
+
 cabbr %% <C-R>=expand('%:p:h')<CR>
 
 syntax on
@@ -33,6 +36,21 @@ au BufRead,BufNewFile *.dbinfo setfiletype sql
 au BufRead,BufNewFile *.function setfiletype sql
 au BufRead,BufNewFile *.trigger setfiletype sql
 au BufRead,BufNewFile *.sel setfiletype php
+au BufRead,BufNewFile *.gv setfiletype dot
+au BufRead,BufNewFile scratch set nonumber
+
+" Linux Kernel Coding
+"set noexpandtab                         " use tabs, not spaces
+"set tabstop=8                           " tabstops of 8
+"set shiftwidth=8                        " indents of 8
+"set textwidth=78                        " screen in 80 columns wide, wrap at 78
+"set autoindent smartindent              " turn on auto/smart indenting
+"set smarttab                            " make <tab> and <backspace> smarter
+"set backspace=eol,start,indent          " allow backspacing over indent, eol, & start
+
+" Dont jump to first column for # in python
+"autocmd BufRead *.py inoremap # <c-h> #
+autocmd FileType make setlocal noexpandtab
 
 augroup JumpCursorOnEdit
    au!
