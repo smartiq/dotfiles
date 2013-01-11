@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-Various files from my home directory.  
+Various files from my home directory.
 
 I find that setting up a new computer is a pain,
 so my goal is to be able to clone this repo,
