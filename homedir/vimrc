@@ -16,8 +16,20 @@ set cindent
 set number
 set wildmode=longest,list
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929 
-match OverLength /\%81v.\+/
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+"set wrap
+set textwidth=79
+set colorcolumn=+1
+set formatoptions=qrn1
+
+"Trailing whitespace should be red:
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 cabbr %% <C-R>=expand('%:p:h')<CR>
 
